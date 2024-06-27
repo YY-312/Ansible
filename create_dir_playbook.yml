@@ -1,10 +1,8 @@
----
-- hosts: all
-  become: yes  # Enable privilege escalation if necessary
-  
+- name: create_directory
+  hosts: webservers
   tasks:
-    - name: Ensure directory exists
-      file:
-        path: ~/hellotest  # Replace with your desired directory path
-        state: directory
-        mode: '0755'  # Set permissions as needed
+
+   - name: Creates directory
+     file:
+       path: ~/yanyan_is_very_tired
+       state: directory
