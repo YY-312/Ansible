@@ -1,0 +1,10 @@
+---
+- hosts: webservers
+  become: yes  # Enable privilege escalation if necessary
+  
+  tasks:
+    - name: Ensure directory exists
+      file:
+        path: /home/devasc  # Replace with your desired directory path
+        state: directory
+        mode: '0755'  # Set permissions as needed
