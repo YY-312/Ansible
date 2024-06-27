@@ -1,5 +1,5 @@
 - name: create_directory
-  hosts: webservers
+  hosts: all
   tasks:
 
    - name: Creates directory
