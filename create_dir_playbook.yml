@@ -5,6 +5,6 @@
   tasks:
     - name: Ensure directory exists
       file:
-        path: /home/devasc/hellotest  # Replace with your desired directory path
+        path: ~/hellotest  # Replace with your desired directory path
         state: directory
         mode: '0755'  # Set permissions as needed
