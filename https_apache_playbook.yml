@@ -1,0 +1,84 @@
+---
+- hosts: webservers
+  become: yes
+  vars:
+    ssl_certificate_path: /etc/ssl/certs/apache-selfsigned.crt
+    ssl_certificate_key_path: /etc/ssl/private/apache-selfsigned.key
+    server_name: 192.0.2.3
+
+  tasks:
+    - name: Install Apache2 and OpenSSL
+      apt:
+        name: 
+          - apache2
+          - openssl
+        update_cache: yes
+        state: latest
+
+    - name: Enable SSL module
+      apache2_module:
+        name: ssl
+        state: present
+      notify:
+        - Restart Apache
+
+    - name: Create SSL certificate directory
+      file:
+        path: /etc/ssl/certs
+        state: directory
+        mode: '0755'
+
+    - name: Create SSL private key directory
+      file:
+        path: /etc/ssl/private
+        state: directory
+        mode: '0700'
+
+    - name: Generate a self-signed SSL certificate
+      command: openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout {{ ssl_certificate_key_path }} -out {{ ssl_certificate_path }} -subj "/C=US/ST=State/L=City/O=Organization/OU=Department/CN={{ server_name }}"
+      args:
+        creates: "{{ ssl_certificate_path }}"
+
+    - name: Configure Apache to listen on port 443
+      lineinfile:
+        path: /etc/apache2/ports.conf
+        regexp: '^#?Listen 443'
+        line: 'Listen 443'
+      notify:
+        - Restart Apache
+
+    - name: Create SSL Virtual Host file
+      copy:
+        dest: /etc/apache2/sites-available/default-ssl.conf
+        content: |
+          <IfModule mod_ssl.c>
+              <VirtualHost *:443>
+                  DocumentRoot /var/www/html
+
+                  SSLEngine on
+                  SSLCertificateFile      {{ ssl_certificate_path }}
+                  SSLCertificateKeyFile   {{ ssl_certificate_key_path }}
+
+                  <FilesMatch "\.(cgi|shtml|phtml|php)$">
+                      SSLOptions +StdEnvVars
+                  </FilesMatch>
+                  <Directory /usr/lib/cgi-bin>
+                      SSLOptions +StdEnvVars
+                  </Directory>
+
+                  BrowserMatch "MSIE [2-6]" \
+                      nokeepalive ssl-unclean-shutdown \
+                      downgrade-1.0 force-response-1.0
+              </VirtualHost>
+          </IfModule>
+
+    - name: Enable the SSL Virtual Host
+      shell: /usr/sbin/a2ensite default-ssl.conf
+      notify:
+        - Restart Apache
+
+  handlers:
+    - name: Restart Apache
+      service: 
+        name: apache2
+        state: restarted

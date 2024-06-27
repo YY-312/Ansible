@@ -1,0 +1,19 @@
+---
+- hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Install ModSecurity module
+      apt:
+        name: libapache2-mod-security2
+        state: present
+
+    - name: Enable ModSecurity module
+      apache2_module:
+        name: security2
+        state: present
+
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
