@@ -8,12 +8,12 @@
         update_cache: yes 
         state: latest
 
-    - name: ENABLED MOD_REWRITE
-      community.general.apache2_module: 
-        name: rewrite 
-        state: present
-      notify:
-        - RESTART APACHE2
+    # - name: ENABLED MOD_REWRITE
+    #   community.general.apache2_module: 
+    #     name: rewrite 
+    #     state: present
+    #   notify:
+    #     - RESTART APACHE2
 
   handlers:
     - name: RESTART APACHE2
