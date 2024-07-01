@@ -4,5 +4,5 @@
 
    - name: Creates directory
      file:
-       path: ~/yanyan_biscuit
+       path: ~/yanyan_test
        state: directory
