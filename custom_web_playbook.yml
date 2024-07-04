@@ -18,15 +18,15 @@
         name: apache2
         state: started
 
-    - name: APACHE2 LISTEN ON PORT 80
-      lineinfile: dest=/etc/apache2/ports.conf regexp="^Listen 8081" line="Listen 80" state=present
-      notify:
-        - RESTART APACHE2
+    # - name: APACHE2 LISTEN ON PORT 80
+    #   lineinfile: dest=/etc/apache2/ports.conf regexp="^Listen 8081" line="Listen 80" state=present
+    #   notify:
+    #     - RESTART APACHE2
  
-    - name: APACHE2 VIRTUALHOST ON PORT 80
-      lineinfile: dest=/etc/apache2/sites-available/000-default.conf regexp="^<VirtualHost \*:8081>" line="<VirtualHost *:80>" state=present
-      notify:
-        - RESTART APACHE2
+    # - name: APACHE2 VIRTUALHOST ON PORT 80
+    #   lineinfile: dest=/etc/apache2/sites-available/000-default.conf regexp="^<VirtualHost \*:8081>" line="<VirtualHost *:80>" state=present
+    #   notify:
+    #     - RESTART APACHE2
 
     - name: Copy index test page / Copy custom index to DocumentRoot
       template:
