@@ -1,0 +1,37 @@
+- name: Configure Router
+  hosts: all
+  gather_facts: no
+  connection: network_cli
+  vars:
+    ansible_network_os: ios 
+  tasks:
+    - name: Make sure the hostname is set up
+      ios_config:
+        lines:
+          - hostname router1
+
+    - name: Configure the interface GigabitEthernet1
+      ios_config:
+        lines:
+          - interface GigabitEthernet1
+          - ip address 192.168.56.119 255.255.255.0
+          - description Connected to LAN
+          - no shutdown
+        before:
+          - interface GigabitEthernet1
+        after:
+          - exit
+
+    - name: Configure banner
+      ios_config:
+        lines:
+          - banner motd ^ Only Authorised Users!! ^
+
+    - name: Save configuration
+      ios_command:
+        commands:
+          - write memory
+
+    - name: Display success banner
+      debug:
+        msg: "Successfully configured!!"
