@@ -1,6 +1,8 @@
 ---
-- hosts: webservers
+- hosts: all
   become: yes
+  collections:
+    - name: apache2_module
   vars:
     ssl_certificate_path: /etc/ssl/certs/apache-selfsigned.crt
     ssl_certificate_key_path: /etc/ssl/private/apache-selfsigned.key
