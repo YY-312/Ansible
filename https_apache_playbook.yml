@@ -18,7 +18,7 @@
         state: latest
 
     - name: Enable SSL module
-      community.general.apache2_module:
+      apache2_module:
         name: ssl
         state: present
       notify:
