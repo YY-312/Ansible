@@ -1,5 +1,5 @@
-#[webservers]
-#192.0.2.3 ansible_ssh_user=devasc ansible_ssh_private_key_file=~/.ssh/id_rsa
+[webservers]
+192.0.2.3 ansible_ssh_user=devasc ansible_ssh_private_key_file=~/.ssh/id_rsa
 
-[routers]
-router1 ansible_host=192.168.56.119 ansible_user=cisco ansible_password=cisco123! ansible_network_os=ios ansible_connection=network_cli
+#[routers]
+#router1 ansible_host=192.168.56.119 ansible_user=cisco ansible_password=cisco123! ansible_network_os=ios ansible_connection=network_cli
