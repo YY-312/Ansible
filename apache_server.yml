@@ -1,6 +1,9 @@
 - hosts: apache
-  become: true
   tasks:
+    - name: Install Python if not already installed
+      raw: |
+        apt-get update && apt-get install -y python3
+
     - name: Install required packages
       apt:
         name: "{{ item }}"
@@ -10,14 +13,12 @@
         - iputils-ping
         - iproute2
         - wget
-        - python3
 
     - name: Configure IP address on eth1
-      ansible.builtin.ipaddr:
-        name: 192.168.2.2/24
-        dev: eth1
+      command: ip addr add 192.168.2.2/24 dev eth1
+      ignore_errors: yes
 
     - name: Add route to Linux client subnet
-      ansible.builtin.ip_route:
-        network: 192.168.1.0/24
-        dev: eth1
+      command: ip route add 192.168.1.0/24 dev eth1
+      ignore_errors: yes
+      
