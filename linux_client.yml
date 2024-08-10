@@ -1,0 +1,23 @@
+- hosts: linux
+  become: true
+  tasks:
+    - name: Install required packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - net-tools
+        - iputils-ping
+        - iproute2
+        - wget
+        - python3
+
+    - name: Configure IP address on eth1
+      ansible.builtin.ipaddr:
+        name: 192.168.1.100/24
+        dev: eth1
+
+    - name: Add route to Apache server subnet
+      ansible.builtin.ip_route:
+        network: 192.168.2.0/24
+        dev: eth1
