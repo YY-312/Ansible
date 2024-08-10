@@ -1,9 +1,5 @@
 - hosts: apache
   tasks:
-    # - name: Install Python if not already installed
-    #  raw: |
-    #    apt-get update && apt-get install -y python3
-
     - name: Install required packages
       apt:
         name: "{{ item }}"
