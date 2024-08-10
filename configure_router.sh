@@ -59,23 +59,6 @@ docker exec -it clab-firstlab-csr-r1 bash -c 'cat <<EOF > /configure_router.yml
           - line vty 0 4
           - transport input ssh
           - login local
-    - name: Configure Gi2 interface
-      ios_config:
-        lines:
-          - interface Gi2
-          - ip address 192.168.1.1 255.255.255.0
-          - no shutdown
-    - name: Configure Gi3 interface
-      ios_config:
-        lines:
-          - interface Gi3
-          - ip address 192.168.2.1 255.255.255.0
-          - no shutdown
-    - name: Configure static routes
-      ios_config:
-        lines:
-          - ip route 192.168.1.0 255.255.255.0 Gi2
-          - ip route 192.168.2.0 255.255.255.0 Gi3
 EOF'
 
 # Run Ansible playbook
