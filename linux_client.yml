@@ -13,7 +13,6 @@
         - iproute2
         - wget
         - python3
-        - vim
 
     - name: Configure IP address on eth1
       command: ip addr add 192.168.1.100/24 dev eth1
