@@ -75,9 +75,9 @@
             <h2>The previous 'It works!' has been changed to this!</h2>
             <h3>This webpage has been changed by running Ansible Playbooks from Jenkins.</h3>
             
-            <img src="https://example.com/your-dog-image.jpg" alt="Dog Image" width="500" height="300">
+            <img src="https://images.pexels.com/photos/2253275/pexels-photo-2253275.jpeg" alt="Dog Image" width="500" height="300">
             <br><br>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/your-video-id" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/gGcubGOqDHE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </body>
           </html>
         dest: /usr/local/apache2/htdocs/index.html
