@@ -7,7 +7,7 @@
           <html>
           <body>
             <h1>Hello I am Yan Yan :)</h1>
-            <h2 style="font-family: 'Comic Sans MS', cursive;">The previous 'It works!' has been changed to this!</h2>
+            <h2 style="font-family: Arial, sans-serif;">The previous 'It works!' has been changed to this!</h2>
             <h3 style="color: blue;">This webpage has been changed by running Ansible Playbooks from Jenkins.</h3>
             
             <img src="https://images.pexels.com/photos/2253275/pexels-photo-2253275.jpeg" alt="Dog Image" width="500" height="300">
