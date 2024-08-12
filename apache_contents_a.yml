@@ -6,16 +6,6 @@
         content: |
           <html>
           <body>
-            <div style="background-color: #333; padding: 10px;">
-              <a href="#home" style="color: white; text-decoration: none; margin-right: 15px;">Home</a>
-              <a href="#about" style="color: white; text-decoration: none; margin-right: 15px;">About</a>
-              <a href="#contact" style="color: white; text-decoration: none;">Contact</a>
-              <form action="/action_page.php" style="display: inline-block; float: right;">
-                <input type="text" placeholder="Search.." name="search" style="padding: 5px;">
-                <button type="submit" style="padding: 5px;">Submit</button>
-              </form>
-            </div>
-
             <h1>Hello I am Yan Yan :)</h1>
             <h2 style="font-family: 'Courier New', Courier, monospace;">The previous 'It works!' has been changed to this!</h2>
             <h3 style="color: blue;">This webpage has been changed by running Ansible Playbooks from Jenkins.</h3>
