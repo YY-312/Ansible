@@ -1,8 +1,8 @@
 import subprocess
  
 def run_command_in_container(container_name, command):
-    """Function to run shell commands inside a Docker container."""
-    docker_command = f"docker exec -i {container_name} bash -c '{command}'"
+    """Function to run shell commands inside a Docker container without using bash."""
+    docker_command = f"docker exec {container_name} {command}"
     result = subprocess.run(docker_command, shell=True, capture_output=True, text=True)
     if result.returncode == 0:
         print(f"Command '{command}' executed successfully in container '{container_name}'.")
@@ -37,7 +37,6 @@ ServerName 192.168.2.2
 </VirtualHost>
 </IfModule>
 """
- 
     # Append SSL configuration to httpd-ssl.conf
     run_command_in_container(container_name, f"echo '{ssl_conf_content}' >> /usr/local/apache2/conf/extra/httpd-ssl.conf")
  
@@ -57,3 +56,5 @@ ServerName 192.168.2.2
 if __name__ == "__main__":
     container_name = "clab-firstlab-apache-server"
     configure_ssl_on_apache(container_name)
+
+has context menu
