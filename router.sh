@@ -54,10 +54,10 @@ EOF
 )
 
 # Step 1: Create the Python script inside the container
-docker exec -it clab-firstlab-csr-r1 bash -c "echo '$PYTHON_SCRIPT' > /root/router.py"
+sudo docker exec -i -u root clab-firstlab-csr-r1 bash -c "echo '$PYTHON_SCRIPT' > /root/router.py"
 
 # Step 2: Install Paramiko if it's not already installed
-docker exec -it clab-firstlab-csr-r1 bash -c "pip3 install paramiko"
+sudo docker exec -i -u root clab-firstlab-csr-r1 bash -c "pip3 install paramiko"
 
 # Step 3: Run the Python script inside the container
-docker exec -it clab-firstlab-csr-r1 bash -c "python3 /root/router.py"
+sudo docker exec -i -u root clab-firstlab-csr-r1 bash -c "python3 /root/router.py"
