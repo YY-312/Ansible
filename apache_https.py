@@ -25,7 +25,6 @@ ServerName 192.168.2.2
     SSLPassPhraseDialog  builtin
     SSLSessionCache       shmcb:/usr/local/apache2/logs/ssl_scache(512000)
     SSLSessionCacheTimeout  300
-    SSLMutex  file:/usr/local/apache2/logs/ssl_mutex
     SSLCertificateFile "/usr/local/apache2/conf/server.crt"
     SSLCertificateKeyFile "/usr/local/apache2/conf/server.key"
     <VirtualHost _default_:443>
