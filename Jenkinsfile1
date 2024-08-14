@@ -12,9 +12,9 @@ pipeline {
                 sh 'chmod +x ./router.sh'
             }
         }
-        stage('Run Ansible Playbook') {
+        stage('Run Python Script') {
             steps {
-                sh 'sudo ./router.sh'
+                sh './router.sh'
             }
         }
     }
