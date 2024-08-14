@@ -2,7 +2,7 @@ import subprocess
 
 def run_command_in_container(container_name, command):
     """Function to run shell commands inside a Docker container."""
-    full_command = f"docker exec -it {container_name} bash -c \"{command}\""
+    full_command = f"docker exec {container_name} bash -c \"{command}\""
     result = subprocess.run(full_command, shell=True, capture_output=True, text=True)
     if result.returncode == 0:
         print(f"Command '{command}' executed successfully in container '{container_name}'.")
