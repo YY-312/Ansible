@@ -1,20 +1,23 @@
 import subprocess
 
-def run_command(command):
-    """Function to run shell commands."""
-    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+def run_command(container, command):
+    """Function to run shell commands inside a Docker container."""
+    docker_command = f"docker exec {container} bash -c '{command}'"
+    result = subprocess.run(docker_command, shell=True, capture_output=True, text=True)
     if result.returncode == 0:
-        print(f"Command '{command}' executed successfully.")
+        print(f"Command '{docker_command}' executed successfully.")
     else:
-        print(f"Error executing '{command}': {result.stderr}")
+        print(f"Error executing '{docker_command}': {result.stderr}")
         raise Exception(result.stderr)
 
 def configure_ssl_on_apache():
+    container_name = "clab-firstlab-apache-server"
+
     # Rename and move SSL certificate
-    run_command("cp /usr/local/apache2/conf/ssl/apache.crt /usr/local/apache2/conf/server.crt")
+    run_command(container_name, "cp /usr/local/apache2/conf/ssl/apache.crt /usr/local/apache2/conf/server.crt")
 
     # Rename and move SSL key
-    run_command("cp /usr/local/apache2/conf/ssl/apache.key /usr/local/apache2/conf/server.key")
+    run_command(container_name, "cp /usr/local/apache2/conf/ssl/apache.key /usr/local/apache2/conf/server.key")
 
     # Update httpd-ssl.conf with SSL settings
     ssl_conf_path = "/usr/local/apache2/conf/extra/httpd-ssl.conf"
@@ -39,29 +42,21 @@ ServerName 192.168.2.2
 """
 
     # Append SSL configuration to httpd-ssl.conf
-    with open(ssl_conf_path, "a") as ssl_conf_file:
-        ssl_conf_file.write(ssl_conf_content)
+    run_command(container_name, f"bash -c 'echo \"{ssl_conf_content}\" >> {ssl_conf_path}'")
 
     # Include httpd-ssl.conf in main configuration if not already included
     httpd_conf_path = "/usr/local/apache2/conf/httpd.conf"
     include_directive = "Include conf/extra/httpd-ssl.conf"
-    with open(httpd_conf_path, "r+") as httpd_conf_file:
-        lines = httpd_conf_file.readlines()
-        if include_directive not in lines:
-            httpd_conf_file.write(f"\n{include_directive}\n")
+    run_command(container_name, f"bash -c 'grep -qxF \"{include_directive}\" {httpd_conf_path} || echo \"{include_directive}\" >> {httpd_conf_path}'")
 
     # Load SSL and socache_shmcb modules if not already loaded
     ssl_module = "LoadModule ssl_module modules/mod_ssl.so"
     socache_module = "LoadModule socache_shmcb_module modules/mod_socache_shmcb.so"
-    with open(httpd_conf_path, "r+") as httpd_conf_file:
-        lines = httpd_conf_file.readlines()
-        if ssl_module not in lines:
-            httpd_conf_file.write(f"\n{ssl_module}\n")
-        if socache_module not in lines:
-            httpd_conf_file.write(f"{socache_module}\n")
+    run_command(container_name, f"bash -c 'grep -qxF \"{ssl_module}\" {httpd_conf_path} || echo \"{ssl_module}\" >> {httpd_conf_path}'")
+    run_command(container_name, f"bash -c 'grep -qxF \"{socache_module}\" {httpd_conf_path} || echo \"{socache_module}\" >> {httpd_conf_path}'")
 
     # Restart Apache to apply changes
-    run_command("apachectl restart")
+    run_command(container_name, "apachectl restart")
 
 if __name__ == "__main__":
     configure_ssl_on_apache()
