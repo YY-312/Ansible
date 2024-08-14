@@ -32,6 +32,14 @@ def configure_ssl_on_apache(container_name):
 
     run_command_in_container(container_name, "cp /usr/local/apache2/conf/ssl/apache.key /usr/local/apache2/conf/server.key")
  
+    # Debug: List contents of /usr/local/apache2/conf to ensure it exists
+
+    run_command_in_container(container_name, "ls -l /usr/local/apache2/conf")
+ 
+    # Debug: Check if httpd.conf exists
+
+    run_command_in_container(container_name, "ls /usr/local/apache2/conf/httpd.conf")
+ 
     # Update httpd-ssl.conf with SSL settings
 
     ssl_conf_content = """
@@ -101,5 +109,3 @@ if __name__ == "__main__":
     container_name = "clab-firstlab-apache-server"
 
     configure_ssl_on_apache(container_name)
-
- 
