@@ -43,7 +43,7 @@ def main():
     commands = [
         "enable",             # Enter enable mode
         "configure terminal", # Enter global configuration mode
-        "hostname helloabigail"    # Change the hostname to "helloyy"
+        "hostname icecream"    # Change the hostname to "helloyy"
     ]
 
     run_ssh_commands(commands)
