@@ -56,5 +56,3 @@ ServerName 192.168.2.2
 if __name__ == "__main__":
     container_name = "clab-firstlab-apache-server"
     configure_ssl_on_apache(container_name)
-
-has context menu
