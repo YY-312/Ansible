@@ -42,9 +42,23 @@ def run_ssh_commands(commands):
 
 def main():
     commands = [
-        "enable",             # Enter enable mode
-        "configure terminal", # Enter global configuration mode
-        "hostname hi"   # Change the hostname to "helloOne"
+        "enable",                             # Enter enable mode
+        "configure terminal",                 # Enter global configuration mode
+        "hostname helloOne",                  # Change the hostname
+        "ip domain-name example.com",         # Ensure SSH is enabled
+        "crypto key generate rsa modulus 2048",
+        "ip ssh version 2",
+        "line vty 0 4",
+        "transport input ssh",
+        "login local",
+        "interface Gi2",                      # Configure Gi2 interface
+        "ip address 192.168.1.1 255.255.255.0",
+        "no shutdown",
+        "interface Gi3",                      # Configure Gi3 interface
+        "ip address 192.168.2.1 255.255.255.0",
+        "no shutdown",
+        "ip route 192.168.1.0 255.255.255.0 Gi2",  # Configure static routes
+        "ip route 192.168.2.0 255.255.255.0 Gi3"
     ]
 
     run_ssh_commands(commands)
