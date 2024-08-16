@@ -44,7 +44,7 @@ def main():
     commands = [
         "enable",             # Enter enable mode
         "configure terminal", # Enter global configuration mode
-        "hostname helloOne"   # Change the hostname to "icecream"
+        "hostname helloOne"   # Change the hostname to "helloOne"
     ]
 
     run_ssh_commands(commands)
@@ -57,13 +57,16 @@ if __name__ == "__main__":
 with open('router.py', 'w') as file:
     file.write(python_script)
 
-# Step 2: Install Paramiko if not already installed
+# Step 2: Update package list and install necessary packages inside the container
+subprocess.run(['docker', 'exec', '-i', '-u', 'root', 'clab-firstlab-csr-r1', 'bash', '-c', 'apt-get update && apt-get install -y python3 python3-pip'], check=True)
+
+# Step 3: Install Paramiko if not already installed
 subprocess.run(['docker', 'exec', '-i', '-u', 'root', 'clab-firstlab-csr-r1', 'bash', '-c', 'pip3 install paramiko'], check=True)
 
-# Step 3: Copy the Python script into the Docker container
+# Step 4: Copy the Python script into the Docker container
 subprocess.run(['docker', 'cp', 'router.py', 'clab-firstlab-csr-r1:/router.py'], check=True)
 
-# Step 4: Run the Python script inside the Docker container
+# Step 5: Run the Python script inside the Docker container
 subprocess.run(['docker', 'exec', '-i', '-u', 'root', 'clab-firstlab-csr-r1', 'bash', '-c', 'python3 /router.py'], check=True)
 
 # Cleanup: Remove the script file from the local machine
