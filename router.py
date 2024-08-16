@@ -44,7 +44,7 @@ def main():
     commands = [
         "enable",                             # Enter enable mode
         "configure terminal",                 # Enter global configuration mode
-        "hostname helloOne",                  # Change the hostname
+        "hostname test",                  # Change the hostname
         "ip domain-name example.com",         # Ensure SSH is enabled
         "crypto key generate rsa modulus 2048",
         "ip ssh version 2",
@@ -55,7 +55,7 @@ def main():
         "ip address 192.168.1.1 255.255.255.0",
         "no shutdown",
         "interface Gi3",                      # Configure Gi3 interface
-        "ip address 192.168.2.1 255.255.255.0",
+        "ip address 192.168.2.3 255.255.255.0",
         "no shutdown",
         "ip route 192.168.1.0 255.255.255.0 Gi2",  # Configure static routes
         "ip route 192.168.2.0 255.255.255.0 Gi3"
