@@ -12,7 +12,7 @@
         - vim
 
     - name: Configure IP address on eth1
-      command: ip addr add 192.168.2.4/24 dev eth1
+      command: ip addr del 192.168.2.4/24 dev eth1 && ip addr add 192.168.2.2/24 dev eth1
       ignore_errors: yes
 
     - name: Add route to Linux client subnet
