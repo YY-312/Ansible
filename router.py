@@ -44,7 +44,7 @@ def main():
     commands = [
         "enable",                             # Enter enable mode
         "configure terminal",                 # Enter global configuration mode
-        "hostname test",                  # Change the hostname
+        "hostname yanyan",                  # Change the hostname
         "ip domain-name example.com",         # Ensure SSH is enabled
         "crypto key generate rsa modulus 2048",
         "ip ssh version 2",
