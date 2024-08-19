@@ -13,7 +13,7 @@
         path: /usr/local/apache2/conf/extra/httpd-ssl.conf
         block: |
           ServerName 192.168.2.2
-<IfModule ssl_module>
+          <IfModule ssl_module>
             Listen 443
             SSLPassPhraseDialog  builtin
             SSLSessionCache       shmcb:/usr/local/apache2/logs/ssl_scache(512000)
@@ -21,14 +21,14 @@
             SSLMutex  file:/usr/local/apache2/logs/ssl_mutex
             SSLCertificateFile "/usr/local/apache2/conf/server.crt"
             SSLCertificateKeyFile "/usr/local/apache2/conf/server.key"
-<VirtualHost _default_:443>
+            <VirtualHost _default_:443>
               ServerAdmin webmaster@localhost
               DocumentRoot "/usr/local/apache2/htdocs"
               ErrorLog "logs/ssl_error_log"
               CustomLog "logs/ssl_access_log" common
               SSLEngine on
-</VirtualHost>
-</IfModule>
+            </VirtualHost>
+          </IfModule>
  
     - name: Include httpd-ssl.conf in main configuration
       lineinfile:
